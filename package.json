@@ -9,9 +9,10 @@
     "node": "20.x"
   },
   "scripts": {
-    "build": "npx nest build",
+    "prebuild": "rimraf dist",
+    "build": "tsc -p tsconfig.build.json",
     "format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\"",
-    "start": "npx nest start",
+    "start": "node dist/main",
     "start:dev": "npx nest start --watch",
     "start:debug": "npx nest start --debug --watch",
     "start:prod": "node dist/main",
@@ -44,6 +45,7 @@
     "passport-local": "^1.0.0",
     "pg": "^8.18.0",
     "reflect-metadata": "^0.2.2",
+    "rimraf": "^5.0.5",
     "rxjs": "^7.8.1",
     "socket.io": "^4.8.3",
     "typeorm": "^0.3.28"
