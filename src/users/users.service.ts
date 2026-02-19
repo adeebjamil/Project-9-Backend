@@ -1,5 +1,5 @@
 import { Injectable, ConflictException, NotFoundException } from '@nestjs/common';
-import * as bcrypt from 'bcrypt';
+import * as bcrypt from 'bcryptjs';
 import { SupabaseService } from '../supabase/supabase.service';
 import { UserRole } from './entities/user.entity';
 
@@ -74,7 +74,7 @@ export class UsersService {
         if (email !== undefined) fields.email = email;
         if (role !== undefined) fields.role = role;
         if (balance !== undefined) fields.balance = Number(balance);
-        if (password) fields.password_hash = await (await import('bcrypt')).hash(password, 10);
+        if (password) fields.password_hash = await (await import('bcryptjs')).hash(password, 10);
 
         if (Object.keys(fields).length === 0) {
             throw new Error('No fields to update');

@@ -44,7 +44,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.UsersService = void 0;
 const common_1 = require("@nestjs/common");
-const bcrypt = __importStar(require("bcrypt"));
+const bcrypt = __importStar(require("bcryptjs"));
 const supabase_service_1 = require("../supabase/supabase.service");
 const user_entity_1 = require("./entities/user.entity");
 let UsersService = class UsersService {
@@ -117,7 +117,7 @@ let UsersService = class UsersService {
         if (balance !== undefined)
             fields.balance = Number(balance);
         if (password)
-            fields.password_hash = await (await import('bcrypt')).hash(password, 10);
+            fields.password_hash = await (await import('bcryptjs')).hash(password, 10);
         if (Object.keys(fields).length === 0) {
             throw new Error('No fields to update');
         }

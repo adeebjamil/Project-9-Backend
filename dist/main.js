@@ -7,8 +7,17 @@ async function bootstrap() {
     const app = await core_1.NestFactory.create(app_module_1.AppModule);
     app.setGlobalPrefix('api');
     app.useGlobalPipes(new common_1.ValidationPipe({ transform: true, whitelist: true }));
-    app.enableCors({ origin: ['http://localhost:3000', 'http://localhost:3001'], credentials: true });
-    await app.listen(process.env.PORT ?? 5000);
+    const allowedOrigins = [
+        'http://localhost:3000',
+        'http://localhost:3001',
+    ];
+    if (process.env.FRONTEND_URL) {
+        allowedOrigins.push(process.env.FRONTEND_URL);
+    }
+    app.enableCors({ origin: allowedOrigins, credentials: true });
+    const port = process.env.PORT ?? 5000;
+    await app.listen(port, '0.0.0.0');
+    console.log(`Server running on port ${port}`);
 }
 bootstrap();
 //# sourceMappingURL=main.js.map
